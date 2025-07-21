@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Rajveer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: white;
+            background-color: #0a0a0a;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(139, 0, 139, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(75, 0, 130, 0.15) 0%, transparent 25%),
+                linear-gradient(to bottom right, #1a1a2e, #16213e, #0f3460);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Left Navigation */
+        nav {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px 15px;
+            border-radius: 0 15px 15px 0;
+            backdrop-filter: blur(5px);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            opacity: 0.8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ffb6c1;
+            font-size: 20px;
+            text-align: left;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        nav ul li:hover {
+            opacity: 1;
+            background-color: rgba(255, 182, 193, 0.1);
+        }
+
+        nav ul li.active {
+            font-weight: bold;
+            opacity: 1;
+            background-color: rgba(255, 182, 193, 0.2);
+            border-left: 3px solid #ffb6c1;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Birthday Card */
+        .birthday-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .birthday-title {
+            font-size: 36px;
+            color: #ffb6c1;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .birthday-subtitle {
+            font-size: 28px;
+            color: #ffb6c1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .birthday-message {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #eee;
+        }
+
+        .highlight-message {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffb6c1;
+            margin: 30px 0;
+            line-height: 1.6;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .quote-section {
+            margin: 40px 0;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 182, 193, 0.3);
+            border-bottom: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #ddd;
+            text-align: center;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 28px;
+            color: #ffb6c1;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Promise Columns */
+        .promise-columns {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .promise-column {
+            background-color: rgba(10, 10, 10, 0.85);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .promise-column:hover {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-color: #444;
+        }
+
+        .promise-title {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .promise-content {
+            display: none;
+            font-size: 18px;
+            line-height: 1.6;
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: left;
+            white-space: pre-line;
+            color: #ccc;
+            border-top: 1px solid #333;
+        }
+
+        .promise-column.active {
+            background-color: rgba(30, 30, 30, 0.95);
+            border-color: #ffb6c1;
+        }
+
+        .promise-column.active .promise-content {
+            display: block;
+        }
+
+        /* Happy 19th Page */
+        .reason {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 40px;
+            border-left: 3px solid #ffb6c1;
+            padding-left: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .reason:hover {
+            border-left: 3px solid white;
+            transform: translateX(5px);
+        }
+
+        .reason h2 {
+            font-size: 22px;
+            color: #ffb6c1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            font-size: 22px;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            color: #ffb6c1;
+        }
+
+        /* Memories Page */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .memory-item {
+            background-color: rgba(255, 182, 193, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .memory-item:hover {
+            transform: scale(1.03);
+        }
+
+        .memory-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .memory-caption {
+            padding: 15px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Thank You Page */
+        .thank-you-note {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .front-image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .front-image img {
+            display: block;
+            max-width: 80%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Left Navigation Bar -->
+    <nav>
+        <ul>
+            <li class="nav-home active">Home</li>
+            <li class="nav-birthday">Happy 19th</li>
+            <li class="nav-thanks">Thanks</li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Home Page -->
+            <div class="page home-page active">
+                <div class="birthday-card">
+                    <div class="birthday-title">HAPPY BIRTHDAY RAJVEER</div>
+                    <div class="front-image"> <img src="front.jpg"></div>
+                    <div class="birthday-subtitle">HAPPIEST BIRTHDAY<br>MY LOVE</div>
+
+                    <div class="birthday-message">
+                        May this year brings you all the love, happiness, success and everything that you wish for
+                    </div>
+
+                    <div class="birthday-message">
+                        You are my calm in chaos person .... you have given my days more meaning ... my nights more
+                        warmth (ofc with your goodnight calls) and my dreams more sweet
+                    </div>
+
+                    <div class="highlight-message">
+                        You are... and always will be my safe place<br>
+                        ...my forever... my boyfieee
+                    </div>
+
+                    <div class="birthday-message">
+                        When I am with you literally everything slows down (except the clock) the world seems more calm
+                    </div>
+
+                    <div class="birthday-message">
+                        And everything just makes soo much sense
+                    </div>
+
+                    <div class="birthday-message">
+                        You make ordinary moments... extraordinary by just being in them (ofc the leo trait)
+                    </div>
+
+                    <div class="quote-section">
+                        <div class="quote">
+                            "The quote says I didn't choose you... my heart did but in our case before anything my mom
+                            chose you and I am really proud of her choice"
+                        </div>
+                        <div class="signature">
+                            - love you
+                        </div>
+                    </div>
+
+                    <!-- Promise Columns -->
+                    <div class="promise-columns">
+                        <div class="promise-column">
+                            <div class="promise-title">LOVE -</div>
+                            <div class="promise-content">
+                                I PROMISE YOU TO LOVE YOU EVEN MORE WITH EACH PASSING DAY . ACTUALLY THAT'S ALSO VERY
+                                STUPID BECAUSE EVN IF I DON'T PROMISE YOU THAT I KEEP FALLING FOR YOU EVERY SINLGE DAY .
+                                YOU ARE MY ALL TIME CRUSH .
+                            </div>
+                        </div>
+
+                        <div class="promise-column">
+                            <div class="promise-title">LIVE</div>
+                            <div class="promise-content">
+                                I PROMISE TO LIVE AND CREATE EVERY MOMENT TOGETHER INTO A SWEET MEMORY AND OFC AN INSTA
+                                POST . I KNOW ITS YOUR BIRTHDAY BUT I REALLY HOPE THAT WE GET TO TRAVEL TOGETHER AND
+                                HAVE OUR TRIP ( EK WISH TOH M BHI MAANG SKTI HU NA...GOD PLS SUN LENA )
+                            </div>
+                        </div>
+
+                        <div class="promise-column">
+                            <div class="promise-title">LAUGH -</div>
+                            <div class="promise-content">
+                                I PROMISE TO MAKE YOU LAUGH AND TRY TO BRING THAT BEUTIFUL SMILE ON YOUR FACE. THOUGH I
+                                KNOW MY JOKES ARE REALLY FUNNY SO THAT'S AN EASY TASK. I PROMISE I WILL ALWAYS TRY AND
+                                MAKE UR DAY FULL OF HAPPINESS AND THUGHTFUL. AND KEEP SHOWING UR GORGEOUS TEETHS TO THE
+                                WORLD ( ESPECIALLY TO ME)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Happy 19th Page -->
+            <div class="page birthday-page">
+                <div class="birthday-card">
+                    <h1>Happy 19th birthday, my love <span style="color: #ff6b6b;">💕</span></h1>
+
+                    <div class="intro">
+                        ALTHOUGH THERE ARE INFINITE REASONS TO LOVE YOU,<br />
+                        HERE ARE 19 SPECIAL REASONS WHY YOU MEAN THE WORLD TO ME:
+                    </div>
+
+                    <!-- All 19 reasons exactly as you wrote them -->
+                    <div class="reason">
+                        <h2>1. I LOVE YOUR EYES AND YOUR SMILE</h2>
+                        <p>
+                            Your smile makes my day brighter... that natural and effortlessly beautiful smile means a
+                            lot to me.<br><br>
+                            And your eyes... I love to observe your eyes — the way your pupils dilate when you see me...
+                            without even you saying it, your eyes do let me know how much you love me.
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>2. I LOVE YOUR VOICE AND YOUR HAIR</h2>
+                        <p>
+                            Me and Aadi too love your voice… I don't know how but it really calms my mind down. That's
+                            why whenever I have any minor inconvenience I just want you around me because with you I
+                            feel everything is alright.<br><br>
+                            And of course those perfectly curly hair… I always wanted curly hair even on myself (apne
+                            saare shaunk aap pe pure krlungi) and the fact that they are perfect without any external
+                            effort… 24/7 good looking!
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="second.jpg" style="height: 800px; width: 600px;"></div>
+                    <div class="reason">
+                        <h2>3. I LOVE YOUR CONFIDENCE</h2>
+                        <p>
+                            I always wanted someone who's confident in himself and for me too.<br><br>
+                            Honestly, I think that's why people call you manipulative — because you present your points
+                            with such confidence that people have to agree. 😌
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="third.jpg" style="height: 600px; width: 500px;transform: rotate(270deg);"></div>
+                    <div class="reason">
+                        <h2>4. I LOVE THE WAY YOU TREAT OTHERS</h2>
+                        <p>
+                            The way you're so morally correct… it amazes me. <br><br>
+                            Sometimes I feel I'm rude compared to you, but your ability to forgive and focus only on the
+                            positives is so admirable. (Though yes, ranting is fun sometimes 😜)
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>5. I LOVE YOU FOR YOUR HUMOUR</h2>
+                        <p>
+                            I won't say your humour is better than mine… but you are a strong competitor 😏<br><br>
+                            And THANK YOU for always cheering me up. I'll never forget the time I was about to cry and
+                            you faked a guitar song on video call. I love youuu 💖
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="fifth.jpg" style="height: 500px; width: 500px;"></div>
+                    <div class="reason">
+                        <h2>6. I LOVE YOU FOR YOUR PATIENCE</h2>
+                        <p>
+                            I know I can be irritating or overly emotional at times… and you still handle everything so
+                            patiently. Hats off, really. <br><br>
+                            Thank you for always being calm when I can't. 🙏
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>7. I LOVE YOUR FRAGRANCE</h2>
+                        <p>
+                            I still remember entering your car for the first time — your scent was the first thing I
+                            noticed. <br><br>
+                            Your choices in perfumes are so much better than mine. But it's okay — I made the best
+                            choice of my life by choosing you. Baaki tu hai sambhalne ke liye 💗
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="7.jpg" style="height: 700px; width: 600px;"></div>
+                    <div class="reason">
+                        <h2>8. I LOVE HOW HONEST YOU ARE WITH ME</h2>
+                        <p>
+                            My mumma always said: have one person in life who is your mirror — someone who knows
+                            everything and never lies to you.<br><br>
+                            I hope we become that one person for each other.
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>9. I LOVE IT WHEN YOU'RE A LITTLE JEALOUS</h2>
+                        <p>
+                            You don't always show it… but I know when you are 😉<br><br>
+                            It's honestly cute. I love how territorial you get sometimes. I love being yours. <br>
+                            And I love when you add "my" before any adjective you use for me. 🥺💘
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="9.jpg" style="height: 600px; width: 500px;transform: rotate(270deg);"></div>
+                    <div class="reason">
+                        <h2>10. I LOVE HOW SAFE I FEEL AROUND YOU</h2>
+                        <p>
+                            There's a strange comfort I have when I'm with you. <br><br>
+                            I can say anything and everything — and I know you won't judge. <br>
+                            Also, let's be honest… when I'm with you, my brain just shuts down. But it's okay — you've
+                            got enough braincells for both of us 😄
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="10.jpg" style="height: 600px; width: 500px;transform: rotate(90deg);"></div>
+                    <div class="reason">
+                        <h2>11. I LOVE YOUR DRESSING SENSE</h2>
+                        <p>
+                            This should've been my thing — but of course, I suck at it 😅<br><br>
+                            Your outfits always hit the mark. So yes, you're officially hired as my personal stylist for
+                            life 💅
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>12. I LOVE HOW TALENTED YOU ARE</h2>
+                        <p>
+                            From poetry and shayaris to painting, reels, and creativity — you've got it all. <br><br>
+                            Your ability to get sudden bursts of ideas and input on any project is just… fabbbb.
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>13. I LOVE HOW YOU PUT EFFORTS FOR ME</h2>
+                        <p>
+                            You still try, still show up, still care. <br><br>
+                            And even if I sometimes overlook it… please know, deep down, I do see how much you love me.
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="13.jpg" style="height: 600px; width: 500px;"></div>
+                    <div class="reason">
+                        <h2>14. I LOVE YOUR HANDWRITING</h2>
+                        <p>
+                            I know this might sound kinda lame… but I genuinely love your handwriting. <br><br>
+                            They say your handwriting reflects your state of mind — and of course, someone who's so
+                            sorted and organized up there will have such clean, calm, and beautiful handwriting.
+                            <br><br>
+                            Just like you. 📝💙
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>15. I LOVE THE FACT YOU KNOW HOW TO COOK</h2>
+                        <p>
+                            You've literally checked every single column on my "dream boyfriend" list — and knowing how
+                            to cook just made it perfect. <br><br>
+                            Now there's nothing else I want… <br>
+                            It's just you. And always you. 👨‍🍳💖
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="15.jpg" style="height: 600px; width: 500px;"></div>
+                    <div class="reason">
+                        <h2>16. I LOVE YOUR BIRTHMARKS</h2>
+                        <p>
+                            Uhhm… I think I've discovered most of them by now — and they're all at the perfect places 😏
+                            <br><br>
+                            But I'm seriously obsessed with them — especially the one on your neck (yes, that's the one
+                            I'm talking about 😌). <br><br>
+                            And hey… we can't forget to mention *Mighty Raju* either 😭💗
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>17. I LOVE THE BALANCE BETWEEN US</h2>
+                        <p>
+                            I love how we're two different people with different thoughts, but we still click perfectly.
+                            <br><br>
+                            We don't have to agree on everything — and that's the fun part. We challenge, we learn, and
+                            we grow together. <br>
+                            It's like we're pieces from different puzzles that somehow fit just right. 🧩💞
+                        </p>
+                    </div>
+
+                    <div class="reason">
+                        <h2>18. I LOVE HOW STRONG YOU ARE — MENTALLY AND PHYSICALLY</h2>
+                        <p>
+                            I love how you can deceive your own mind and still do what you truly want — that kind of
+                            self-control and focus is a skill to be proud of. <br><br>
+                            And physically... well, I don't even need to say anything, do I? <br>
+                            Mr. Strong, you've got that covered 💪😌
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="18.jpg" style="height: 600px; width: 500px;transform: rotate(270deg);"></div>
+                    <div class="reason">
+                        <h2>19. I LOVE YOU FOR YOUR SIMPLICITY</h2>
+                        <p>
+                            I love the fact that even after having so many amazing qualities, you're still so grounded.
+                            <br><br>
+                            There's no arrogance, no attitude — just kindness and calm. <br>
+                            And in this whole Gen Z chaos, the way you still crave a simple, cute, and stable
+                            relationship? <br>
+                            That's rare. That's beautiful. That's you. 🤍
+                        </p>
+                    </div>
+                    <div class="front-image"><img src="19.jpg" style="height: 600px; width: 700px;"></div>
+                    <div class="intro" style="margin-top: 60px;">
+                        And this is how I'll end it:<br />
+                        I LOVE YOU FOR JUST BEING YOU —<br />
+                        The you I fell for.<br />
+                        The you who chose me.<br />
+                        The you who stayed.<br />
+                        Happy 19th, love 🩵
+                    </div>
+                </div>
+            </div>
+            <!-- Thanks Page -->
+            <div class="page thanks-page">
+                <div class="birthday-card">
+                    <h1>Thank You For Everything</h1>
+
+                    <div class="intro">
+                        For all that you are and all that you do<br>
+                        Here's my heartfelt thank you
+                    </div>
+
+                    <div class="thank-you-note">
+                        Thank you for being my rock, my comfort, and my greatest adventure. For every laugh you've given
+                        me, every tear you've wiped away, and every moment you've made special.
+                    </div>
+
+                    <div class="thank-you-note">
+                        Thank you for your patience when I'm difficult, for your understanding when I'm emotional, and
+                        for your love even when I don't deserve it.
+                    </div>
+
+                    <div class="thank-you-note">
+                        Most of all, thank you for being you - exactly as you are. That's all I'll ever need.
+                    </div>
+
+                    <div class="signature" style="margin-top: 50px;">
+                        Forever grateful,<br>
+                        Shreyaaa
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle promise columns
+        document.querySelectorAll('.promise-column').forEach(column => {
+            column.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Navigation functionality
+        document.querySelectorAll('nav ul li').forEach(item => {
+            item.addEventListener('click', function () {
+                // Update active nav item
+                document.querySelectorAll('nav ul li').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                // Show selected page
+                const pageClass = this.classList[0].replace('nav-', '') + '-page';
+                document.querySelector('.' + pageClass).classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
